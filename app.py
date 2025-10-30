@@ -1,46 +1,49 @@
-course = "python programming"  # string methods
+course = 10  # number operators
 
-# The code `print(len(course))` is calculating the length of the string variable `course` and then
-# printing out that length. In this case, the length of the string "python programming" is calculated
-# and printed to the console.
-print(len(course))
+# `course + 3` is adding the value of `course` (which is 10) to 3. So, the result will be 13.
+print(course + 3)
 
-# The `course.upper()` method is converting all the characters in the `course` string to
-# uppercase letters. It does not modify the original string `course`, but returns a new string
-# with all characters in uppercase.
-print(course.upper())
+# `course - 3` is subtracting the value of 3 from the value of `course`, which is 10 in this
+# case. So, the result will be 7.
+print(course - 3)
 
-# The `course.lower()` method is converting all the characters in the `course` string to
-# lowercase letters. It does not modify the original string `course`, but returns a new string
-# with all characters in lowercase.
-print(course.lower())
+# `course * 3` is multiplying the value of `course` (which is 10) by 3. So, the result will be
+# 30.
+print(course * 3)
 
-# The `course.title()` method is converting the string `course` into title case. This means that
-# the first letter of each word in the string will be capitalized, while all other letters will
-# be in lowercase. It does not modify the original string `course`, but returns a new string
-# with the title case formatting applied.
-print(course.title())
+# `course / 3` is performing division operation. It is dividing the value of `course`, which is
+# 10 in this case, by 3. So, the result will be the quotient of 10 divided by 3, which is
+# approximately 3.3333333333333335 in Python since it performs floating-point division by
+# default.
+print(course / 3)
 
-# The `course.strip()` method is removing any leading or trailing whitespace characters from the
-# string `course`. It does not modify the original string `course`, but returns a new string
-# with the leading and trailing whitespace removed.
-print(course.strip())
+# `course // 3` is performing integer division. It divides the value of `course`, which is 10 in
+# this case, by 3 and returns the integer part of the result.
+print(course // 3)
 
-# The `course.find("pr")` method is searching for the substring "pr" within the `course` string.
-# If the substring is found, it returns the index of the first occurrence of the substring
-# within the string. If the substring is not found, it returns -1. In this case, it is searching
-# for the substring "pr" in the string "python programming" and will return the index where "pr"
-# starts, which is 7.
-print(course.find("pr"))
+# The expression `course % 3` is using the modulo operator in Python. It calculates the
+# remainder when `course` (which is 10) is divided by 3.
+print(course % 3)
+# The expression `course ** 3` is raising the value of the variable `course` to the power of 3.
+# In this case, since `course` is 10, `course ** 3` calculates 10 raised to the power of 3,
+# which is equal to 1000.
+print(course**3)
 
-# The expression `"pro" in course` is checking if the substring "pro" is present within the
-# string `course`. It returns a boolean value, `True` if the substring is found in the string,
-# and `False` if it is not found. In this case, it is checking if "pro" is a substring of
-# "python programming" and will return `True` because "pro" is indeed present in the string.
-print("pro" in course)
+# The expression `course += 3` is a shorthand notation for incrementing the value of the variable
+# `course` by 3. It is equivalent to writing `course = course + 3`.
+course += 3
 
-# The expression `"pro" not in course` is checking if the substring "pro" is not present within
-# the string `course`. It returns a boolean value, `True` if the substring is not found in the
-# string, and `False` if it is found. In this case, it is checking if "pro" is not a substring
-# of "python programming" and will return `False` because "pro" is indeed present in the string.
-print("pro" not in course)
+# `course -= 3` is a shorthand notation for decrementing the value of the variable `course` by 3. It
+# is equivalent to writing `course = course - 3`.
+course -= 3
+
+# `course *= 3` is shorthand notation for multiplying the value of the variable `course` by 3 and
+# assigning the result back to `course`. It is equivalent to writing `course = course * 3`. So, in
+# this case, it is multiplying the current value of `course` by 3 and updating the value of `course`
+# to the result of that multiplication.
+course *= 3
+
+# The expression `course **= 3` is shorthand notation for raising the value of the variable `course`
+# to the power of 3 and assigning the result back to `course`. It is equivalent to writing `course =
+# course ** 3`.
+course **= 3
