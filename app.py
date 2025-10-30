@@ -1,19 +1,48 @@
-# `import math` is a Python statement that imports the math module. This module provides mathematical
-# functions and constants for various mathematical operations. By importing the math module, you gain
-# access to functions like trigonometric functions, logarithmic functions, constants like pi, and more
-# advanced mathematical operations.
-import math
+# Type conversion
 
-course = 10  # number methods
+## The `int()` function in Python is used for type conversion, specifically for converting a value to
+# an integer data type. In the code snippet you provided, `int(x)` is converting the input value
+# stored in the variable `x` (which is initially a string due to the `input()` function) into an
+# integer. This allows you to perform mathematical operations or comparisons that require integer
+# values.
+int()
+## The `float()` function in Python is used for type conversion, specifically for converting a value
+# to a floating-point number data type. Similar to `int()`, `float()` allows you to convert values to
+# floating-point numbers, which are numbers that have a decimal point. This conversion is useful when
+# you need to perform operations or comparisons that involve decimal values.
+float()
+## The `bool()` function in Python is used for type conversion, specifically for converting a value to
+# a boolean data type. When you pass a value to the `bool()` function, it will return `True` if the
+# value is considered "truthy" and `False` if the value is considered "falsy" based on Python's truth
+# value testing rules.
 
-# The `round(2.7)` function is rounding the number 2.7 to the nearest integer. In this case, it will
-# return 3.
-round(2.7)
+#falsy => 0 , "" , none
+#truthy => 1 , "abc" , -2
 
-# The `abs(-2)` function is returning the absolute value of the number -2. In this case, it will
-# return 2, as the absolute value of -2 is 2.
-abs(-2)
+bool()
+# The `str()` function in Python is used for type conversion, specifically for converting a value to a
+# string data type. When you pass a value to the `str()` function, it will convert that value into a
+# string representation. This is useful when you need to concatenate strings, display values as text,
+# or perform operations that require string manipulation.
+str()
 
-# The `math.ceil(2.7)` function is returning the smallest integer greater than or equal to 2.7. In
-# this case, it will return 3 because 3 is the smallest integer that is greater than or equal to 2.7.
-math.ceil(2.7)
+
+
+# The `input("x = ")` function is displaying a prompt message "x = " to the user and waiting for
+# the user to enter some input. The input entered by the user will be stored in the variable `x`.
+x = input("x = ")
+
+
+print(# The `type(x)` function in Python is used to determine the data type of the variable `x`. When
+# `type(x)` is called, it returns the type of the value stored in the variable `x`. This is
+# helpful for understanding the nature of the data stored in a variable and can be used for type
+# checking or debugging purposes.
+type(x))
+
+x = int(x)
+
+print(type(x))
+
+y = x + 1
+
+print (f"x ={x} y={y}")
