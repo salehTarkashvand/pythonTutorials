@@ -1,11 +1,51 @@
-# for - else
+# Nested-Loops
 
-successful = False
+for x in range(4):
+    for y in range(3):
+        print(f"({x},{y})")
 
-for number in range(3):
-    print("attempt")
-    if(successful):
-        print("successful")
-        break
-else:
-    print("attempt 3 time and faild")
+# (0,0)
+# (0,1)
+# (0,2)
+# (1,0)
+# (1,1)
+# (1,2)
+# (2,0)
+# (2,1)
+# (2,2)
+# (3,0)
+# (3,1)
+# (3,2)
+
+for x in range(4):
+    for y in range(4):
+        print(f"({x},{y})")
+
+# (0,0)
+# (0,1)
+# (0,2)
+# (1,0)
+# (1,1)
+# (1,2)
+# (2,0)
+# (2,1)
+# (2,2)
+# (3,0)
+# (3,1)
+# (3,2)
+# (0,0)
+# (0,1)
+# (0,2)
+# (0,3)
+# (1,0)
+# (1,1)
+# (1,2)
+# (1,3)
+# (2,0)
+# (2,1)
+# (2,2)
+# (2,3)
+# (3,0)
+# (3,1)
+# (3,2)
+# (3,3)
