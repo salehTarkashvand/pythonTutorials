@@ -1,12 +1,10 @@
-# calling a function with argument unpacking (*args)
+# keyword argument unpacking (**args)
 
 
-def multiply(*numbers):
-    print(numbers)  # (1, 2, 3, 4, 10)
-    total = 1
-    for number in numbers:
-        total *= number
-    return total
+def save_user(**user): 
+    print(user)  # {'id': 1, 'name': 'saleh', 'age': 26}
+    print(user["name"])  # saleh
 
 
-print(multiply(1, 2, 3, 4, 10))  # 240
+
+save_user(id=1, name="saleh", age=26)  # 240
