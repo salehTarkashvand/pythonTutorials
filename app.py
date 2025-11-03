@@ -1,15 +1,19 @@
-# short circuit
+# for operator
+
+# for
+
+# The `for` loop in Python is iterating over a range of numbers from 0 to 3 (exclusive) using the
+# `range(4)` function. Inside the loop, it is printing the message "message" and then printing the
+# current number in the iteration. This loop will execute 4 times, with `number` taking on the values
+# 0, 1, 2, and 3 in each iteration.
 
 
-good_credit = False
-high_income = True
-student = False
+# in
 
-# What is short circuit in Python?
-# The OR operator returns TRUE when either of the relations or operands in the expression evaluates to true.
-# Short-circuiting in Python is a technique by which execution of boolean expression containing 'or' and 'and' operator in Python is halted as soon as the truth value of the expression is determined
+# The `in` keyword in this context is used to iterate over the elements of the iterable
+# object `range(4)`. It assigns each element of the iterable to the variable `number` in
+# each iteration of the loop.
 
-if student and good_credit and high_income:
-    print("eligibale")
-else:
-    print("not eligibale")
+for number in range(4):
+    print("message")
+    print(number)
