@@ -1,8 +1,8 @@
-# function parameter and argument
+# Function with a return value
 
 
-def greet(firest_name , last_name):
-    print(f"{firest_name} {last_name}")
+def greet(firest_name, last_name):
+    return f"{firest_name} {last_name}"
 
 
-greet("saleh","torkashvand")
+print(greet("saleh", "torkashvand"))
