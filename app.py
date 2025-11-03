@@ -1,8 +1,12 @@
-# define default arguments
+# calling a function with argument unpacking (*args)
 
 
-def greet(firest_name, last_name="torkashvand"):
-    return f"{firest_name} {last_name}"
+def multiply(*numbers):
+    print(numbers)  # (1, 2, 3, 4, 10)
+    total = 1
+    for number in numbers:
+        total *= number
+    return total
 
 
-print(greet(firest_name="saleh"))
+print(multiply(1, 2, 3, 4, 10))  # 240
