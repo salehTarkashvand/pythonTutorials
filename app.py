@@ -1,51 +1,29 @@
-# Nested-Loops
+# while operator
 
-for x in range(4):
-    for y in range(3):
-        print(f"({x},{y})")
+number = 100
+while number > 0:
+    print(number)
+    number //= 2
 
-# (0,0)
-# (0,1)
-# (0,2)
-# (1,0)
-# (1,1)
-# (1,2)
-# (2,0)
-# (2,1)
-# (2,2)
-# (3,0)
-# (3,1)
-# (3,2)
+print("Done")
 
-for x in range(4):
-    for y in range(4):
-        print(f"({x},{y})")
+# 100
+# 50
+# 25
+# 12
+# 6
+# 3
+# 1
+# Done
 
-# (0,0)
-# (0,1)
-# (0,2)
-# (1,0)
-# (1,1)
-# (1,2)
-# (2,0)
-# (2,1)
-# (2,2)
-# (3,0)
-# (3,1)
-# (3,2)
-# (0,0)
-# (0,1)
-# (0,2)
-# (0,3)
-# (1,0)
-# (1,1)
-# (1,2)
-# (1,3)
-# (2,0)
-# (2,1)
-# (2,2)
-# (2,3)
-# (3,0)
-# (3,1)
-# (3,2)
-# (3,3)
+
+
+command = ""
+
+while command.lower() != "exit":
+    command = input(">>>")
+    print(command)
+    if command.lower() == "Exit":
+        break
+
+print("Done")
