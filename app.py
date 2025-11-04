@@ -1,10 +1,10 @@
-# keyword argument unpacking (**args)
+# LIST ([A,B,C])
 
-
-def save_user(**user): 
-    print(user)  # {'id': 1, 'name': 'saleh', 'age': 26}
-    print(user["name"])  # saleh
-
-
-
-save_user(id=1, name="saleh", age=26)  # 240
+letters = ["a", "b", "c"]  # ['a', 'b', 'c']
+zeros = [0] * 10  # [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+combined = letters + zeros  # ['a', 'b', 'c', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+a = [[1, 2], [3, 4]]  # [[1, 2], [3, 4]]
+number = list(
+    range(20)
+)  # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+print(number)
