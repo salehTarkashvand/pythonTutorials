@@ -1,11 +1,31 @@
-# find index from list
+# sorting list 
 
-letters = ["a", "b", "c"]
+# sort()
+numbers = [3, 4, 1, 2]
+numbers.sort()
+print(numbers)  # [1, 2, 3, 4]
 
-#index : The index() method returns the position at the first occurrence of the specified value.
+# sorted()
+numbers = [3, 4, 1, 2]
+print(sorted(numbers))  # [1, 2, 3, 4]
+print(numbers)  # [3, 4, 1, 2]
 
-print(letters.index("b")) # 1
 
-#count : The count() method returns the number of elements with the specified value.
+# handle with function for tuples
 
-print(letters.count("b")) # 1
+products = [("product1", 12), ("product1", 9), ("product1", 55)]
+
+
+def sort_item(item):
+    return item[1]
+
+
+products.sort(key=sort_item)
+print(products)  # [('product1', 9), ('product1', 12), ('product1', 55)]
+
+
+# handle with lambda for tuples
+products = [("product1", 12), ("product1", 9), ("product1", 55)]
+
+products.sort(key=lambda item: item[1])
+print(products)  # [('product1', 9), ('product1', 12), ('product1', 55)]
