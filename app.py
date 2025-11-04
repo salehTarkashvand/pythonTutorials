@@ -1,43 +1,11 @@
-# add and remove from list
+# find index from list
 
-
-                #add
-
-#append
 letters = ["a", "b", "c"]
 
-letters.append("b")
-print(letters)  # ['a', 'b', 'c', 'b']
+#index : The index() method returns the position at the first occurrence of the specified value.
 
-#insert
-letters = ["a", "b", "c"]
+print(letters.index("b")) # 1
 
-letters.insert(0,"b")
-print(letters)  # ['b', 'a', 'b', 'c']
+#count : The count() method returns the number of elements with the specified value.
 
-            #remove
-
-#pop
-letters = ["a", "b", "c"]
-
-letters.pop()
-print(letters)  # ['a', 'b']
-
-#pop(index)
-letters = ["a", "b", "c"]
-
-letters.pop(0)
-print(letters)  # ['b', 'c']
-
-#remove
-letters = ["a", "b", "c"]
-
-letters.remove("c")
-print(letters)  # ['a', 'b']
-
-#del letters[index or :2 ]
-letters = ["a", "b", "c"]
-del letters[2] #['a', 'b']
-del letters[:2] #['c']
-print(letters)
-
+print(letters.count("b")) # 1
