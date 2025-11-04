@@ -1,10 +1,24 @@
-# LIST ([A,B,C])
+# list unpack
 
-letters = ["a", "b", "c"]  # ['a', 'b', 'c']
-zeros = [0] * 10  # [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-combined = letters + zeros  # ['a', 'b', 'c', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-a = [[1, 2], [3, 4]]  # [[1, 2], [3, 4]]
-number = list(
-    range(20)
-)  # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
-print(number)
+list = [1, 2, 3]
+a, b, c = list
+
+print(a, b, c)  # 1 2 3
+
+
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+a, b, *c = numbers
+
+print(a, b, c)  # 1 2 [3, 4, 5, 6, 7, 8, 9]
+
+
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+a, *c, b = numbers
+
+print(a, b, c)  # 1 9 [2, 3, 4, 5, 6, 7, 8]
+
+
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+a, *c, b, d = numbers
+
+print(a, b, c, d)  # 1 8 [2, 3, 4, 5, 6, 7] 9
