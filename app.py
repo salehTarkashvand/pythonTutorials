@@ -1,31 +1,22 @@
-# sorting list 
+# Transforming a list
 
-# sort()
-numbers = [3, 4, 1, 2]
-numbers.sort()
-print(numbers)  # [1, 2, 3, 4]
-
-# sorted()
-numbers = [3, 4, 1, 2]
-print(sorted(numbers))  # [1, 2, 3, 4]
-print(numbers)  # [3, 4, 1, 2]
-
-
-# handle with function for tuples
+# transform with for operator
 
 products = [("product1", 12), ("product1", 9), ("product1", 55)]
 
+prises = []
+for item in products:
+    prises.append(item[1])
 
-def sort_item(item):
-    return item[1]
-
-
-products.sort(key=sort_item)
-print(products)  # [('product1', 9), ('product1', 12), ('product1', 55)]
+print(prises)  # [12, 9, 55]
 
 
-# handle with lambda for tuples
+# transform with map() function
+
+
 products = [("product1", 12), ("product1", 9), ("product1", 55)]
 
-products.sort(key=lambda item: item[1])
-print(products)  # [('product1', 9), ('product1', 12), ('product1', 55)]
+x = list(map(lambda item: item[1], products))
+
+
+print(x)  # [12, 9, 55]
