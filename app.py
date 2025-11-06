@@ -1,9 +1,23 @@
-# zip() method
+from collections import deque
 
-# zip() takes two or more iterables (like lists or tuples) and pairs their elements together into tuples.
+# Create an empty queue using deque (double-ended queue)
+# deque is a data structure from the 'collections' module that allows fast appends and pops
+# from both the left and right sides — ideal for implementing queues and stacks efficiently.
+queue = deque([])
 
-item1 = [1, 2, 3]
-item2 = [10, 20, 30]
+# Add elements to the right side of the queue
+queue.append(1)
+queue.append(2)
+queue.append(3)
 
-result = list(zip(item1, item2, "abc"))
-print(result)  # [(1, 10, 'a'), (2, 20, 'b'), (3, 30, 'c')]
+# Remove elements from the left side of the queue (FIFO behavior)
+queue.popleft()
+queue.popleft()
+queue.popleft()
+
+# Check if the queue is empty
+if not queue:
+    print("empty")
+
+# Print the current state of the queue (should be empty)
+print(queue)
