@@ -1,89 +1,61 @@
-# ==============================================================
-# Python Array Module — Complete Reference and Examples
-# ==============================================================
+# Demonstration of Python Set operations and methods
 
-# The 'array' module provides a space-efficient way to store
-# homogeneous (same-type) data — unlike Python lists, which can
-# hold elements of mixed types. Arrays are useful for numeric
-# computations, binary data, and low-level interfacing with C code.
+# --- Creating sets ---
+numbers = [1, 1, 2, 2, 3, 4]
+first = set(numbers)  # Removes duplicates from list
+second = {1, 2, 5}
 
-from array import array
+print("First set:", first)    # {1, 2, 3, 4}
+print("Second set:", second)  # {1, 2, 5}
 
-# --------------------------------------------------------------
-# Example 1: Integer Array
-# --------------------------------------------------------------
-# 'i' → signed int (usually 4 bytes)
-numbers = array('i', [1, 2, 3])
-numbers[0] = 10  # update the first element
-print("Example 1 - Integer Array:", numbers.tolist())  # [10, 2, 3]
+# --- Basic set operations using operators ---
 
+# Union ( | ): all unique elements from both sets
+print("Union (|):", first | second)  # {1, 2, 3, 4, 5}
 
-# --------------------------------------------------------------
-# Example 2: Float Array
-# --------------------------------------------------------------
-# 'f' → 4-byte floating point (single precision)
-floats = array('f', [1.5, 2.7, 3.14])
-floats.append(4.5)
-print("Example 2 - Float Array:", floats.tolist())  # [1.5, 2.7, 3.14, 4.5]
+# Intersection ( & ): elements present in both sets
+print("Intersection (&):", first & second)  # {1, 2}
 
+# Difference ( - ): elements in first but not in second
+print("Difference (-):", first - second)  # {3, 4}
 
-# --------------------------------------------------------------
-# Example 3: Unsigned Short Array
-# --------------------------------------------------------------
-# 'H' → unsigned short (2 bytes)
-unsigned = array('H', [0, 100, 65000])
-unsigned.append(65535)
-print("Example 3 - Unsigned Short Array:", unsigned.tolist())
+# Symmetric Difference ( ^ ): elements in one set or the other, but not both
+print("Symmetric Difference (^):", first ^ second)  # {3, 4, 5}
 
+# --- Equivalent method calls ---
+print("\nEquivalent method calls:")
+print("Union:", first.union(second))
+print("Intersection:", first.intersection(second))
+print("Difference:", first.difference(second))
+print("Symmetric Difference:", first.symmetric_difference(second))
 
-# --------------------------------------------------------------
-# Example 4: Removing and Modifying Elements
-# --------------------------------------------------------------
-numbers = array('i', [5, 10, 15, 20])
-numbers.pop(0)      # remove first element
-numbers.insert(0, 99)  # insert new element at index 0
-print("Example 4 - Modified Array:", numbers.tolist())  # [99, 10, 15, 20]
+# --- Adding and removing elements ---
+first.add(6)  # Adds new element
+print("\nAfter adding 6:", first)
 
+first.remove(1)  # Removes element (raises error if not found)
+print("After removing 1:", first)
 
-# --------------------------------------------------------------
-# Example 5: Converting to a List
-# --------------------------------------------------------------
-# You can convert an array to a normal Python list
-list_version = numbers.tolist()
-print("Example 5 - Converted to List:", list_version)
+first.discard(10)  # Removes safely (no error if not found)
+print("After discard(10):", first)
 
+# --- Membership test ---
+print("\nIs 3 in first?", 3 in first)  # True
+print("Is 7 not in first?", 7 not in first)  # True
 
-# --------------------------------------------------------------
-# Example 6: Accessing and Iterating Through Elements
-# --------------------------------------------------------------
-for value in floats:
-    print("Example 6 - Iterating Float Value:", value)
+# --- Copying a set ---
+copied_set = first.copy()
+print("\nCopied set:", copied_set)
 
+# --- Clearing all elements ---
+copied_set.clear()
+print("After clearing copied set:", copied_set)  # set()
 
-# --------------------------------------------------------------
-# Full List of Type Codes (for reference)
-# --------------------------------------------------------------
-#  Code | C Type Equivalent     | Python Type | Size (bytes) | Description
-#  -----|-----------------------|--------------|---------------|-----------------------
-#   'b' | signed char           | int          | 1             | 8-bit integer (signed)
-#   'B' | unsigned char         | int          | 1             | 8-bit integer (unsigned)
-#   'h' | signed short          | int          | 2             | 16-bit integer (signed)
-#   'H' | unsigned short        | int          | 2             | 16-bit integer (unsigned)
-#   'i' | signed int            | int          | 2 or 4        | Normal integer (signed)
-#   'I' | unsigned int          | int          | 2 or 4        | Normal integer (unsigned)
-#   'l' | signed long           | int          | 4             | Long integer (signed)
-#   'L' | unsigned long         | int          | 4             | Long integer (unsigned)
-#   'q' | signed long long      | int          | 8             | 64-bit integer (signed)
-#   'Q' | unsigned long long    | int          | 8             | 64-bit integer (unsigned)
-#   'f' | float                 | float        | 4             | 32-bit float
-#   'd' | double                | float        | 8             | 64-bit double precision float
+# --- Creating set from string (unique letters) ---
+letters = set("banana")
+print("\nUnique letters in 'banana':", letters)  # {'a', 'b', 'n'}
 
-# --------------------------------------------------------------
-# Key Takeaways:
-# --------------------------------------------------------------
-# - Use the 'array' module when you need efficient numeric storage.
-# - Arrays can only store one data type (defined by the type code).
-# - You can append(), insert(), pop(), and iterate through arrays.
-# - Convert arrays to lists with .tolist() when needed.
-# ==============================================================
-
+# --- Frozen sets (immutable sets) ---
+frozen = frozenset({1, 2, 3})
+print("\nFrozen set:", frozen)
+# frozen.add(4)  # ❌ Error: frozenset is immutable
