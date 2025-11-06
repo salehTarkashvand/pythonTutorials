@@ -1,61 +1,91 @@
-# Demonstration of Python Set operations and methods
+# Demonstration of Python dictionaries (dict) and their common operations
 
-# --- Creating sets ---
-numbers = [1, 1, 2, 2, 3, 4]
-first = set(numbers)  # Removes duplicates from list
-second = {1, 2, 5}
+# --- Creating dictionaries ---
+point = {"x": 1, "y": 2}  # Using curly braces
+print("Original dictionary:", point)  # {'x': 1, 'y': 2}
 
-print("First set:", first)    # {1, 2, 3, 4}
-print("Second set:", second)  # {1, 2, 5}
+# You can also use the dict() constructor
+point = dict(x=1, y=2)
+print("Created using dict():", point)  # {'x': 1, 'y': 2}
 
-# --- Basic set operations using operators ---
+# --- Updating values ---
+point["x"] = 10
+point["y"] = 20
+print("\nUpdated values:")
+print("x:", point["x"])  # 10
+print("y:", point["y"])  # 20
 
-# Union ( | ): all unique elements from both sets
-print("Union (|):", first | second)  # {1, 2, 3, 4, 5}
+# --- Accessing values safely with get() ---
+print("\nUsing get() method:")
+print("x value:", point.get("x"))  # 10
+print("z value (not found):", point.get("z", 0))  # 0
 
-# Intersection ( & ): elements present in both sets
-print("Intersection (&):", first & second)  # {1, 2}
+# --- Deleting keys ---
+del point["x"]
+print("\nAfter deleting 'x':", point)  # {'y': 20}
 
-# Difference ( - ): elements in first but not in second
-print("Difference (-):", first - second)  # {3, 4}
+# --- Iterating through dictionary ---
+print("\nIterating keys:")
+for key in point:
+    print(key)
+# y
 
-# Symmetric Difference ( ^ ): elements in one set or the other, but not both
-print("Symmetric Difference (^):", first ^ second)  # {3, 4, 5}
+print("\nIterating keys and values manually:")
+for key in point:
+    print(key, point[key])
+# y 20
 
-# --- Equivalent method calls ---
-print("\nEquivalent method calls:")
-print("Union:", first.union(second))
-print("Intersection:", first.intersection(second))
-print("Difference:", first.difference(second))
-print("Symmetric Difference:", first.symmetric_difference(second))
+print("\nIterating items() as tuples:")
+for item in point.items():
+    print(item)
+# ('y', 20)
 
-# --- Adding and removing elements ---
-first.add(6)  # Adds new element
-print("\nAfter adding 6:", first)
+print("\nIterating items() with unpacking:")
+for key, value in point.items():
+    print(f"Key: {key}, Value: {value}")
+# Key: y, Value: 20
 
-first.remove(1)  # Removes element (raises error if not found)
-print("After removing 1:", first)
+# --- Adding new keys dynamically ---
+point["z"] = 30
+print("\nAfter adding new key 'z':", point)  # {'y': 20, 'z': 30}
 
-first.discard(10)  # Removes safely (no error if not found)
-print("After discard(10):", first)
+# --- Check if a key exists ---
+print("\nIs 'y' in point?", "y" in point)      # True
+print("Is 'x' not in point?", "x" not in point)  # True
 
-# --- Membership test ---
-print("\nIs 3 in first?", 3 in first)  # True
-print("Is 7 not in first?", 7 not in first)  # True
+# --- Copying a dictionary ---
+copy_point = point.copy()
+print("\nCopied dictionary:", copy_point)  # {'y': 20, 'z': 30}
 
-# --- Copying a set ---
-copied_set = first.copy()
-print("\nCopied set:", copied_set)
+# --- Removing all items ---
+copy_point.clear()
+print("After clearing:", copy_point)  # {}
 
-# --- Clearing all elements ---
-copied_set.clear()
-print("After clearing copied set:", copied_set)  # set()
+# --- Nested dictionaries ---
+person = {
+    "name": "Saleh",
+    "age": 25,
+    "skills": {"frontend": "React", "backend": "Node.js"}
+}
+print("\nNested dictionary example:")
+print("Frontend skill:", person["skills"]["frontend"])  # React
 
-# --- Creating set from string (unique letters) ---
-letters = set("banana")
-print("\nUnique letters in 'banana':", letters)  # {'a', 'b', 'n'}
+# --- Merging two dictionaries ---
+a = {"x": 1, "y": 2}
+b = {"y": 3, "z": 4}
+merged = {**a, **b}  # Merge using unpacking (b overwrites y)
+print("\nMerged dictionary:", merged)  # {'x': 1, 'y': 3, 'z': 4}
 
-# --- Frozen sets (immutable sets) ---
-frozen = frozenset({1, 2, 3})
-print("\nFrozen set:", frozen)
-# frozen.add(4)  # ❌ Error: frozenset is immutable
+# --- Using dict comprehension ---
+squared = {n: n**2 for n in range(1, 6)}
+print("\nDictionary comprehension:", squared)  # {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+
+# --- Real-world example: counting word frequency ---
+sentence = "hello world hello python world"
+word_count = {}
+
+for word in sentence.split():
+    word_count[word] = word_count.get(word, 0) + 1
+
+print("\nWord frequency counter:", word_count)
+# {'hello': 2, 'world': 2, 'python': 1}
