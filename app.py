@@ -1,14 +1,9 @@
-# Filtered and maping list with comprehension
+# zip() method
 
+# zip() takes two or more iterables (like lists or tuples) and pairs their elements together into tuples.
 
-products = [("product1", 12), ("product1", 9), ("product1", 55)]
+item1 = [1, 2, 3]
+item2 = [10, 20, 30]
 
-filtred_product = list(filter(lambda product: product[1] >= 10, products))
-# Filtered list comprehension
-filter = [product for product in products if product[1]>= 10 ]
-
-map_product = list(filter(lambda product: product[1], products))
-# Mapping list comprehension
-map = [item[1] for item in products ]
-
-print(filtred_product)
+result = list(zip(item1, item2, "abc"))
+print(result)  # [(1, 10, 'a'), (2, 20, 'b'), (3, 30, 'c')]
