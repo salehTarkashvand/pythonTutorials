@@ -1,114 +1,173 @@
-# --------------------------------------------------------------
-# Generators in Python — Full Examples and Explanations
-# --------------------------------------------------------------
-# A generator expression creates a generator iterator that
-# produces values on-the-fly (lazy evaluation). It does NOT
-# store all values in memory like a list comprehension does.
-#
-# Note: Output values and memory sizes may vary by Python
-# implementation and system. Here we show expected/example outputs.
-from sys import getsizeof
-from itertools import islice
+# =============================================
+# Python Exception Handling — Full Examples
+# Author: Saleh Torkashvand
+# =============================================
 
-# Create a generator expression that yields x*2 for x in range(100)
-values = (x * 2 for x in range(100))
+# This script demonstrates many built-in exception types in Python,
+# how they occur, and how to handle them using try / except / else / finally.
 
-# The generator itself is an iterator — printing it shows a generator object
-print("Generator object:", values)
-# Example output: Generator object: <generator object <genexpr> at 0x7f9b3c4d1e40>
+# ------------------------------------------------------------
+# 1️⃣ ValueError — invalid value for a valid type
+# ------------------------------------------------------------
+try:
+    num = int("abc")
+except ValueError as ex:
+    print("ValueError:", ex)  # Output: ValueError: invalid literal for int() with base 10: 'abc'
 
-# Iterating over generator — it produces items one by one
-print("\nIterating over generator (first 10 shown):")
-for i, x in enumerate(values):
-    print(x, end=" ")
-    if i >= 9:  # stop after 10 items for brevity
-        break
-# Example printed values: 0 2 4 6 8 10 12 14 16 18
+# ------------------------------------------------------------
+# 2️⃣ TypeError — invalid operation between incompatible types
+# ------------------------------------------------------------
+try:
+    result = "3" + 5
+except TypeError as ex:
+    print("TypeError:", ex)  # Output: can only concatenate str (not "int") to str
 
-# Note: after the above loop, 'values' is NOT exhausted yet — we stopped early.
-# Let's consume the rest (demonstration). For clarity we'll create a fresh generator below.
+# ------------------------------------------------------------
+# 3️⃣ NameError — using an undefined variable
+# ------------------------------------------------------------
+try:
+    print(unknown_variable)
+except NameError as ex:
+    print("NameError:", ex)  # Output: name 'unknown_variable' is not defined
 
-# Create a fresh generator for full iteration demonstration
-values = (x * 2 for x in range(100))
+# ------------------------------------------------------------
+# 4️⃣ IndexError — index out of range
+# ------------------------------------------------------------
+try:
+    my_list = [1, 2, 3]
+    print(my_list[5])
+except IndexError as ex:
+    print("IndexError:", ex)  # Output: list index out of range
 
-print("\nFull iteration (prints first 20 and last 2 for brevity):")
-# print first 20 values
-for x in islice(values, 20):
-    print(x, end=" ")
-# Example: 0 2 4 ... 38
+# ------------------------------------------------------------
+# 5️⃣ KeyError — accessing a missing key in a dictionary
+# ------------------------------------------------------------
+try:
+    person = {"name": "Saleh"}
+    print(person["age"])
+except KeyError as ex:
+    print("KeyError:", ex)  # Output: 'age'
 
-# Continue iterating to the end and capture the last two produced values
-# (since generator continues from where we left off)
-last_two = list(islice(values, 98))  # consume remaining into a list for inspection
-# last_two will contain the rest; show last two elements:
-if last_two:
-    print("\n... last two of generator:", last_two[-2], last_two[-1])
-# Example: ... last two of generator: 196 198
+# ------------------------------------------------------------
+# 6️⃣ ZeroDivisionError — dividing by zero
+# ------------------------------------------------------------
+try:
+    x = 10 / 0
+except ZeroDivisionError as ex:
+    print("ZeroDivisionError:", ex)  # Output: division by zero
 
-# After consuming all elements, generator is exhausted
-print("\nAfter full consumption, trying to iterate again yields nothing:")
-for x in values:
-    print(x)  # no output, because generator is exhausted
+# ------------------------------------------------------------
+# 7️⃣ FileNotFoundError — file does not exist
+# ------------------------------------------------------------
+try:
+    file = open("nonexistent.txt")
+except FileNotFoundError as ex:
+    print("FileNotFoundError:", ex)  # Output: [Errno 2] No such file or directory
 
-# Demonstrate StopIteration with next()
-values = (x * 2 for x in range(3))  # small generator: yields 0,2,4
-print("\nUsing next():")
-print(next(values))  # 0
-print(next(values))  # 2
-print(next(values))  # 4
-# print(next(values))  # would raise StopIteration
+# ------------------------------------------------------------
+# 8️⃣ AttributeError — accessing an invalid attribute
+# ------------------------------------------------------------
+try:
+    "hello".append("world")
+except AttributeError as ex:
+    print("AttributeError:", ex)  # Output: 'str' object has no attribute 'append'
 
-# Memory size: generator object is usually small because it doesn't store all items.
-values = (x * 2 for x in range(100))
-print("\nMemory size of generator object (bytes):", getsizeof(values))
-# Example: Memory size of generator object (bytes): 112
-# (Note: actual number depends on Python version and platform.)
+# ------------------------------------------------------------
+# 9️⃣ ImportError / ModuleNotFoundError
+# ------------------------------------------------------------
+try:
+    import not_a_real_module
+except ModuleNotFoundError as ex:
+    print("ModuleNotFoundError:", ex)  # Output: No module named 'not_a_real_module'
 
-# For comparison, creating a list with the same elements stores them in memory:
-values_list = [x * 2 for x in range(100)]
-print("Memory size of list of 100 ints (bytes):", getsizeof(values_list))
-# Example: Memory size of list of 100 ints (bytes): 872
-# Important: getsizeof(list) returns only the container size, not
-# the total size of the referenced integer objects. For deep memory
-# profiling use pympler.asizeof or similar tools.
+# ------------------------------------------------------------
+# 🔟 AssertionError — assert statement fails
+# ------------------------------------------------------------
+try:
+    assert 2 + 2 == 5
+except AssertionError as ex:
+    print("AssertionError:", ex)  # Output: AssertionError
 
-# Reuse note: generators are single-use. To "reuse" create a new generator:
-values1 = (x * 2 for x in range(5))
-print("\nFirst pass over values1:")
-print(list(values1))  # [0, 2, 4, 6, 8]
-values1 = (x * 2 for x in range(5))  # recreate
-print("Second pass after recreating:")
-print(list(values1))  # [0, 2, 4, 6, 8]
+# ------------------------------------------------------------
+# 1️⃣1️⃣ OSError — general OS-level error
+# ------------------------------------------------------------
+try:
+    open("/root/protected.txt", "r")
+except OSError as ex:
+    print("OSError:", ex)  # Output: [Errno 13] Permission denied
 
-# Converting generator to list to store all results:
-values = (x * 2 for x in range(10))
-stored = list(values)  # now all values are in memory and reusable
-print("\nConverted to list (stored):", stored)
-# Output: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+# ------------------------------------------------------------
+# 1️⃣2️⃣ RecursionError — too much recursion
+# ------------------------------------------------------------
+def recurse():
+    return recurse()
+try:
+    recurse()
+except RecursionError as ex:
+    print("RecursionError:", ex)  # Output: maximum recursion depth exceeded
 
-# Generator function (same behavior but with explicit yield)
-def gen_numbers(n):
-    for i in range(n):
-        yield i * 2
+# ------------------------------------------------------------
+# 1️⃣3️⃣ OverflowError — number too large to represent
+# ------------------------------------------------------------
+import math
+try:
+    math.exp(1000)
+except OverflowError as ex:
+    print("OverflowError:", ex)  # Output: math range error
 
-g = gen_numbers(5)
-print("\nGenerator from function (using yield):", list(g))  # [0,2,4,6,8]
+# ------------------------------------------------------------
+# 1️⃣4️⃣ MemoryError — not enough memory (simulated example)
+# ------------------------------------------------------------
+try:
+    x = [0] * (10**9 * 10)
+except MemoryError as ex:
+    print("MemoryError:", ex)  # Output: MemoryError
 
-# Lazy pipelines: generators compose well for memory-efficient pipelines
-def even_numbers(n):
-    for i in range(n):
-        if (i * 2) % 4 == 0:
-            yield i * 2
+# ------------------------------------------------------------
+# 1️⃣5️⃣ RuntimeError — generic runtime error
+# ------------------------------------------------------------
+try:
+    raise RuntimeError("Something unexpected happened")
+except RuntimeError as ex:
+    print("RuntimeError:", ex)  # Output: Something unexpected happened
 
-pipeline = (x for x in even_numbers(20))
-print("\nPipeline example (first 5):", list(islice(pipeline, 5)))
-# Example output: [0, 4, 8, 12, 16]
+# ------------------------------------------------------------
+# 1️⃣6️⃣ EOFError — no input when expected
+# ------------------------------------------------------------
+try:
+    # Uncomment to test manually in terminal
+    # input()  # Press Ctrl+D or EOF to trigger
+    pass
+except EOFError as ex:
+    print("EOFError:", ex)
 
-# --------------------------------------------------------------
-# Key takeaways (printed as comments for clarity):
-# 1) Generators evaluate lazily and are memory-efficient for large sequences.
-# 2) They are iterators and get exhausted after use (single-pass).
-# 3) Use list(...) to materialize results if you need random access or multiple passes.
-# 4) getsizeof shows generator object's memory footprint, not full dataset footprint.
-# 5) For deep memory measurement, use specialized profilers.
-# --------------------------------------------------------------
+# ------------------------------------------------------------
+# 1️⃣7️⃣ Exception — catch-all handler for unknown exceptions
+# ------------------------------------------------------------
+try:
+    risky = 10 / 0
+except Exception as ex:
+    print("Generic Exception caught:", type(ex), ex)
+
+# ------------------------------------------------------------
+# ✅ finally — runs no matter what happens
+# ------------------------------------------------------------
+try:
+    print("Trying to divide...")
+    result = 10 / 0
+except ZeroDivisionError:
+    print("Cannot divide by zero.")
+finally:
+    print("This block always runs!")  # Output: This block always runs!
+
+# ------------------------------------------------------------
+# ✅ else — runs only if no exception happens
+# ------------------------------------------------------------
+try:
+    print("Trying with valid input:")
+    num = int("25")
+except ValueError:
+    print("Invalid input.")
+else:
+    print("No exceptions were thrown.")  # Output: No exceptions were thrown.
+    print("Your age is", num)
