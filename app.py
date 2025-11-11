@@ -1,173 +1,92 @@
 # =============================================
-# Python Exception Handling — Full Examples
+# Python Classes and Objects — Full Example
 # Author: Saleh Torkashvand
 # =============================================
 
-# This script demonstrates many built-in exception types in Python,
-# how they occur, and how to handle them using try / except / else / finally.
+# A simple class definition in Python
+
+class Point:
+    # A class method (function inside a class)
+    # All instance methods must take 'self' as the first parameter
+    # 'self' refers to the current object (instance) created from this class
+    def draw(self):
+        print("Drawing a point...")  # Output when draw() is called
 
 # ------------------------------------------------------------
-# 1️⃣ ValueError — invalid value for a valid type
+# ✅ Creating an instance (object) of the Point class
 # ------------------------------------------------------------
-try:
-    num = int("abc")
-except ValueError as ex:
-    print("ValueError:", ex)  # Output: ValueError: invalid literal for int() with base 10: 'abc'
+point = Point()  # Creating an object named 'point'
 
 # ------------------------------------------------------------
-# 2️⃣ TypeError — invalid operation between incompatible types
+# ✅ Checking the type of the object
 # ------------------------------------------------------------
-try:
-    result = "3" + 5
-except TypeError as ex:
-    print("TypeError:", ex)  # Output: can only concatenate str (not "int") to str
+print(isinstance(point, Point))  # True → because 'point' is an instance of class Point
 
 # ------------------------------------------------------------
-# 3️⃣ NameError — using an undefined variable
+# ✅ Calling a method using the object
 # ------------------------------------------------------------
-try:
-    print(unknown_variable)
-except NameError as ex:
-    print("NameError:", ex)  # Output: name 'unknown_variable' is not defined
+point.draw()  # Output: Drawing a point...
 
 # ------------------------------------------------------------
-# 4️⃣ IndexError — index out of range
+# ✅ Adding attributes to an object dynamically
 # ------------------------------------------------------------
-try:
-    my_list = [1, 2, 3]
-    print(my_list[5])
-except IndexError as ex:
-    print("IndexError:", ex)  # Output: list index out of range
+point.x = 10
+point.y = 20
+print("Point coordinates:", point.x, point.y)  # Output: Point coordinates: 10 20
 
 # ------------------------------------------------------------
-# 5️⃣ KeyError — accessing a missing key in a dictionary
+# ✅ Creating another object of the same class
 # ------------------------------------------------------------
-try:
-    person = {"name": "Saleh"}
-    print(person["age"])
-except KeyError as ex:
-    print("KeyError:", ex)  # Output: 'age'
+another_point = Point()
+another_point.x = 5
+another_point.y = 7
+another_point.draw()  # Output: Drawing a point...
+
+print(isinstance(another_point, Point))  # True
 
 # ------------------------------------------------------------
-# 6️⃣ ZeroDivisionError — dividing by zero
+# ✅ Example: Define a constructor (__init__)
 # ------------------------------------------------------------
-try:
-    x = 10 / 0
-except ZeroDivisionError as ex:
-    print("ZeroDivisionError:", ex)  # Output: division by zero
+class Circle:
+    # The __init__ method automatically runs when you create a new object
+    def __init__(self, radius):
+        self.radius = radius  # Assign value to the object’s property
+        print(f"Circle created with radius = {self.radius}")
+
+    def area(self):
+        return 3.14 * (self.radius ** 2)
+
+# Create two circles
+circle1 = Circle(5)  # Output: Circle created with radius = 5
+circle2 = Circle(10) # Output: Circle created with radius = 10
+
+# Calculate and print their areas
+print("Circle 1 area:", circle1.area())  # Output: 78.5
+print("Circle 2 area:", circle2.area())  # Output: 314.0
 
 # ------------------------------------------------------------
-# 7️⃣ FileNotFoundError — file does not exist
+# ✅ isinstance() and type() differences
 # ------------------------------------------------------------
-try:
-    file = open("nonexistent.txt")
-except FileNotFoundError as ex:
-    print("FileNotFoundError:", ex)  # Output: [Errno 2] No such file or directory
+print(isinstance(circle1, Circle))  # True → circle1 is an instance of Circle
+print(type(circle1))                # <class '__main__.Circle'>
 
 # ------------------------------------------------------------
-# 8️⃣ AttributeError — accessing an invalid attribute
+# ✅ Example: Checking instance type against multiple classes
 # ------------------------------------------------------------
-try:
-    "hello".append("world")
-except AttributeError as ex:
-    print("AttributeError:", ex)  # Output: 'str' object has no attribute 'append'
+print(isinstance(circle1, (Circle, Point)))  # True → circle1 is a Circle, so it's True
+print(isinstance(point, (Circle, Point)))    # True → point is a Point
 
 # ------------------------------------------------------------
-# 9️⃣ ImportError / ModuleNotFoundError
+# ✅ Example: isinstance() vs issubclass()
 # ------------------------------------------------------------
-try:
-    import not_a_real_module
-except ModuleNotFoundError as ex:
-    print("ModuleNotFoundError:", ex)  # Output: No module named 'not_a_real_module'
-
-# ------------------------------------------------------------
-# 🔟 AssertionError — assert statement fails
-# ------------------------------------------------------------
-try:
-    assert 2 + 2 == 5
-except AssertionError as ex:
-    print("AssertionError:", ex)  # Output: AssertionError
-
-# ------------------------------------------------------------
-# 1️⃣1️⃣ OSError — general OS-level error
-# ------------------------------------------------------------
-try:
-    open("/root/protected.txt", "r")
-except OSError as ex:
-    print("OSError:", ex)  # Output: [Errno 13] Permission denied
-
-# ------------------------------------------------------------
-# 1️⃣2️⃣ RecursionError — too much recursion
-# ------------------------------------------------------------
-def recurse():
-    return recurse()
-try:
-    recurse()
-except RecursionError as ex:
-    print("RecursionError:", ex)  # Output: maximum recursion depth exceeded
-
-# ------------------------------------------------------------
-# 1️⃣3️⃣ OverflowError — number too large to represent
-# ------------------------------------------------------------
-import math
-try:
-    math.exp(1000)
-except OverflowError as ex:
-    print("OverflowError:", ex)  # Output: math range error
-
-# ------------------------------------------------------------
-# 1️⃣4️⃣ MemoryError — not enough memory (simulated example)
-# ------------------------------------------------------------
-try:
-    x = [0] * (10**9 * 10)
-except MemoryError as ex:
-    print("MemoryError:", ex)  # Output: MemoryError
-
-# ------------------------------------------------------------
-# 1️⃣5️⃣ RuntimeError — generic runtime error
-# ------------------------------------------------------------
-try:
-    raise RuntimeError("Something unexpected happened")
-except RuntimeError as ex:
-    print("RuntimeError:", ex)  # Output: Something unexpected happened
-
-# ------------------------------------------------------------
-# 1️⃣6️⃣ EOFError — no input when expected
-# ------------------------------------------------------------
-try:
-    # Uncomment to test manually in terminal
-    # input()  # Press Ctrl+D or EOF to trigger
+class Shape:
     pass
-except EOFError as ex:
-    print("EOFError:", ex)
 
-# ------------------------------------------------------------
-# 1️⃣7️⃣ Exception — catch-all handler for unknown exceptions
-# ------------------------------------------------------------
-try:
-    risky = 10 / 0
-except Exception as ex:
-    print("Generic Exception caught:", type(ex), ex)
+class Rectangle(Shape):
+    pass
 
-# ------------------------------------------------------------
-# ✅ finally — runs no matter what happens
-# ------------------------------------------------------------
-try:
-    print("Trying to divide...")
-    result = 10 / 0
-except ZeroDivisionError:
-    print("Cannot divide by zero.")
-finally:
-    print("This block always runs!")  # Output: This block always runs!
-
-# ------------------------------------------------------------
-# ✅ else — runs only if no exception happens
-# ------------------------------------------------------------
-try:
-    print("Trying with valid input:")
-    num = int("25")
-except ValueError:
-    print("Invalid input.")
-else:
-    print("No exceptions were thrown.")  # Output: No exceptions were thrown.
-    print("Your age is", num)
+rect = Rectangle()
+print(isinstance(rect, Rectangle))  # True
+print(isinstance(rect, Shape))      # True → because Rectangle inherits Shape
+print(issubclass(Rectangle, Shape)) # True → Rectangle is a subclass of Shape
+print(issubclass(Point, Shape))     # False → no inheritance relation
