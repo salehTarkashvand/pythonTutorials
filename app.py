@@ -1,60 +1,77 @@
 # =============================================
-# Advanced DocumentRider Class with Magic Methods
+# DocumentRider — OOP, Encapsulation & Magic Methods
 # Author: Saleh Torkashvand
 # =============================================
 
-# A powerful word counter class that behaves like a dictionary
-# Supports addition, removal, iteration, length, comparison, and more
+# A fully encapsulated class that counts words case-insensitively.
+# Behaves like a Python dictionary, supports iteration, deletion, equality,
+# and safely hides internal state using name mangling and property methods.
 
 class DocumentRider:
     def __init__(self):
-        # Dictionary to store word counts (case-insensitive)
-        self.words = {}
+        # Private attribute (encapsulated data)
+        self.__words = {}
 
-    # Add a word to the counter
+    # Public method to add words
     def add(self, word):
         """Increment the count of a word (case-insensitive)."""
         word_lower = word.lower()
-        self.words[word_lower] = self.words.get(word_lower, 0) + 1
+        self.__words[word_lower] = self.__words.get(word_lower, 0) + 1
 
     # Dictionary-like retrieval
     def __getitem__(self, word):
-        return self.words.get(word.lower(), 0)
+        return self.__words.get(word.lower(), 0)
 
     # Dictionary-like assignment
     def __setitem__(self, word, count):
-        self.words[word.lower()] = count
+        self.__words[word.lower()] = count
 
     # Delete a word
     def __delitem__(self, word):
-        if word.lower() in self.words:
-            del self.words[word.lower()]
+        if word.lower() in self.__words:
+            del self.__words[word.lower()]
 
     # Length of unique words
     def __len__(self):
-        return len(self.words)
+        return len(self.__words)
 
     # Iteration over words
     def __iter__(self):
-        return iter(self.words)
+        return iter(self.__words)
 
-    # Check if word exists
+    # Check if a word exists
     def __contains__(self, word):
-        return word.lower() in self.words
+        return word.lower() in self.__words
 
-    # String representation
+    # Custom string representation
     def __str__(self):
-        return str(self.words)
+        return str(self.__words)
 
-    # Comparison between two documents (based on total counts)
+    # Equality check between documents
     def __eq__(self, other):
         if not isinstance(other, DocumentRider):
             return False
-        return self.words == other.words
+        return self.__words == other.__words
 
-    # Sum total words
+    # Total word count
     def total_words(self):
-        return sum(self.words.values())
+        return sum(self.__words.values())
+
+    # 🧩 Property getter for safe external read access
+    @property
+    def words(self):
+        """Return a read-only copy of all words."""
+        return dict(self.__words)
+
+    # 🧩 Optional setter (for controlled replacement)
+    @words.setter
+    def words(self, new_dict):
+        """Safely replace the entire internal dictionary."""
+        if isinstance(new_dict, dict):
+            # normalize all keys to lowercase
+            self.__words = {k.lower(): v for k, v in new_dict.items()}
+        else:
+            raise TypeError("words must be a dictionary")
 
 
 # ---------------------------
@@ -63,61 +80,61 @@ class DocumentRider:
 
 document = DocumentRider()
 
-# Add words
+# Add words (case-insensitive)
 document.add("Python")
 document.add("python")
 document.add("PYTHON")
 document.add("Java")
-document.add("Java")
 document.add("C++")
 
-# Print dictionary-like object
 print("Document:", document)
-# Output: Document: {'python': 3, 'java': 2, 'c++': 1}
+# Output: Document: {'python': 3, 'java': 1, 'c++': 1}
 
-# Access using __getitem__
-print("Python count:", document["Python"])  
-# Output: Python count: 3
+# Accessing via __getitem__
+print("Python count:", document["Python"])
+# Output: 3
 
-# Modify using __setitem__
+# Modifying count via __setitem__
 document["Python"] = 50
-print("Updated Python count:", document["python"])  
-# Output: Updated Python count: 50
+print("Updated Python count:", document["python"])
+# Output: 50
 
-# Delete a word
+# Deleting a word
 del document["c++"]
 print("After deleting C++:", document)
-# Output: After deleting C++: {'python': 50, 'java': 2}
+# Output: {'python': 50, 'java': 1}
 
-# Check if word exists
-print("'java' in document?", "java" in document)  
-# Output: 'java' in document? True
-print("'c++' in document?", "c++" in document)  
-# Output: 'c++' in document? False
+# Membership test
+print("'java' in document?", "java" in document)
+# Output: True
+print("'c++' in document?", "c++" in document)
+# Output: False
 
-# Iterate over words
-print("\nIterating words:")
+# Iteration
+print("Iterating over words:")
 for word in document:
     print(word, "->", document[word])
 # Output:
 # python -> 50
-# java -> 2
+# java -> 1
 
-# Length and total words
-print("\nNumber of unique words:", len(document))  
-# Output: Number of unique words: 2
-print("Total words count:", document.total_words())  
-# Output: Total words count: 52
+# Length & total count
+print("Unique words:", len(document))
+# Output: 2
+print("Total words:", document.total_words())
+# Output: 51
 
 # Comparison with another document
 doc2 = DocumentRider()
-doc2["python"] = 50
-doc2["java"] = 2
-print("\nDocuments equal?", document == doc2)  
-# Output: Documents equal? True
+doc2.words = {"python": 50, "java": 1}
+print("Documents equal?", document == doc2)
+# Output: True
 
-# Example of a new document
-doc3 = DocumentRider()
-doc3["python"] = 10
-print("Documents equal?", document == doc3)  
-# Output: Documents equal? False
+# Reading internal words safely via property
+print("All words:", document.words)
+# Output: {'python': 50, 'java': 1}
+
+# Replacing safely
+document.words = {"Go": 5, "Rust": 3}
+print("Replaced dictionary:", document.words)
+# Output: {'go': 5, 'rust': 3}
