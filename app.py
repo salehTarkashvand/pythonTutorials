@@ -1,92 +1,123 @@
 # =============================================
-# Python Classes and Objects — Full Example
+# Advanced DocumentRider Class with Magic Methods
 # Author: Saleh Torkashvand
 # =============================================
 
-# A simple class definition in Python
+# A powerful word counter class that behaves like a dictionary
+# Supports addition, removal, iteration, length, comparison, and more
 
-class Point:
-    # A class method (function inside a class)
-    # All instance methods must take 'self' as the first parameter
-    # 'self' refers to the current object (instance) created from this class
-    def draw(self):
-        print("Drawing a point...")  # Output when draw() is called
+class DocumentRider:
+    def __init__(self):
+        # Dictionary to store word counts (case-insensitive)
+        self.words = {}
 
-# ------------------------------------------------------------
-# ✅ Creating an instance (object) of the Point class
-# ------------------------------------------------------------
-point = Point()  # Creating an object named 'point'
+    # Add a word to the counter
+    def add(self, word):
+        """Increment the count of a word (case-insensitive)."""
+        word_lower = word.lower()
+        self.words[word_lower] = self.words.get(word_lower, 0) + 1
 
-# ------------------------------------------------------------
-# ✅ Checking the type of the object
-# ------------------------------------------------------------
-print(isinstance(point, Point))  # True → because 'point' is an instance of class Point
+    # Dictionary-like retrieval
+    def __getitem__(self, word):
+        return self.words.get(word.lower(), 0)
 
-# ------------------------------------------------------------
-# ✅ Calling a method using the object
-# ------------------------------------------------------------
-point.draw()  # Output: Drawing a point...
+    # Dictionary-like assignment
+    def __setitem__(self, word, count):
+        self.words[word.lower()] = count
 
-# ------------------------------------------------------------
-# ✅ Adding attributes to an object dynamically
-# ------------------------------------------------------------
-point.x = 10
-point.y = 20
-print("Point coordinates:", point.x, point.y)  # Output: Point coordinates: 10 20
+    # Delete a word
+    def __delitem__(self, word):
+        if word.lower() in self.words:
+            del self.words[word.lower()]
 
-# ------------------------------------------------------------
-# ✅ Creating another object of the same class
-# ------------------------------------------------------------
-another_point = Point()
-another_point.x = 5
-another_point.y = 7
-another_point.draw()  # Output: Drawing a point...
+    # Length of unique words
+    def __len__(self):
+        return len(self.words)
 
-print(isinstance(another_point, Point))  # True
+    # Iteration over words
+    def __iter__(self):
+        return iter(self.words)
 
-# ------------------------------------------------------------
-# ✅ Example: Define a constructor (__init__)
-# ------------------------------------------------------------
-class Circle:
-    # The __init__ method automatically runs when you create a new object
-    def __init__(self, radius):
-        self.radius = radius  # Assign value to the object’s property
-        print(f"Circle created with radius = {self.radius}")
+    # Check if word exists
+    def __contains__(self, word):
+        return word.lower() in self.words
 
-    def area(self):
-        return 3.14 * (self.radius ** 2)
+    # String representation
+    def __str__(self):
+        return str(self.words)
 
-# Create two circles
-circle1 = Circle(5)  # Output: Circle created with radius = 5
-circle2 = Circle(10) # Output: Circle created with radius = 10
+    # Comparison between two documents (based on total counts)
+    def __eq__(self, other):
+        if not isinstance(other, DocumentRider):
+            return False
+        return self.words == other.words
 
-# Calculate and print their areas
-print("Circle 1 area:", circle1.area())  # Output: 78.5
-print("Circle 2 area:", circle2.area())  # Output: 314.0
+    # Sum total words
+    def total_words(self):
+        return sum(self.words.values())
 
-# ------------------------------------------------------------
-# ✅ isinstance() and type() differences
-# ------------------------------------------------------------
-print(isinstance(circle1, Circle))  # True → circle1 is an instance of Circle
-print(type(circle1))                # <class '__main__.Circle'>
 
-# ------------------------------------------------------------
-# ✅ Example: Checking instance type against multiple classes
-# ------------------------------------------------------------
-print(isinstance(circle1, (Circle, Point)))  # True → circle1 is a Circle, so it's True
-print(isinstance(point, (Circle, Point)))    # True → point is a Point
+# ---------------------------
+# ✅ Usage Examples
+# ---------------------------
 
-# ------------------------------------------------------------
-# ✅ Example: isinstance() vs issubclass()
-# ------------------------------------------------------------
-class Shape:
-    pass
+document = DocumentRider()
 
-class Rectangle(Shape):
-    pass
+# Add words
+document.add("Python")
+document.add("python")
+document.add("PYTHON")
+document.add("Java")
+document.add("Java")
+document.add("C++")
 
-rect = Rectangle()
-print(isinstance(rect, Rectangle))  # True
-print(isinstance(rect, Shape))      # True → because Rectangle inherits Shape
-print(issubclass(Rectangle, Shape)) # True → Rectangle is a subclass of Shape
-print(issubclass(Point, Shape))     # False → no inheritance relation
+# Print dictionary-like object
+print("Document:", document)
+# Output: Document: {'python': 3, 'java': 2, 'c++': 1}
+
+# Access using __getitem__
+print("Python count:", document["Python"])  
+# Output: Python count: 3
+
+# Modify using __setitem__
+document["Python"] = 50
+print("Updated Python count:", document["python"])  
+# Output: Updated Python count: 50
+
+# Delete a word
+del document["c++"]
+print("After deleting C++:", document)
+# Output: After deleting C++: {'python': 50, 'java': 2}
+
+# Check if word exists
+print("'java' in document?", "java" in document)  
+# Output: 'java' in document? True
+print("'c++' in document?", "c++" in document)  
+# Output: 'c++' in document? False
+
+# Iterate over words
+print("\nIterating words:")
+for word in document:
+    print(word, "->", document[word])
+# Output:
+# python -> 50
+# java -> 2
+
+# Length and total words
+print("\nNumber of unique words:", len(document))  
+# Output: Number of unique words: 2
+print("Total words count:", document.total_words())  
+# Output: Total words count: 52
+
+# Comparison with another document
+doc2 = DocumentRider()
+doc2["python"] = 50
+doc2["java"] = 2
+print("\nDocuments equal?", document == doc2)  
+# Output: Documents equal? True
+
+# Example of a new document
+doc3 = DocumentRider()
+doc3["python"] = 10
+print("Documents equal?", document == doc3)  
+# Output: Documents equal? False
