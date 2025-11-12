@@ -1,101 +1,75 @@
-# =============================================================
-# 🧬 Inheritance & OOP Example: Animal, Mammal, Bird Classes
+# ============================================================
+# 🐍 Advanced Example: Inheritance and super() in Python
 # Author: Saleh Torkashvand
-# =============================================================
+# ============================================================
 
-# 🧠 Description:
-# This example demonstrates the concept of INHERITANCE in Python OOP.
-# - 'Animal' is a base (parent) class.
-# - 'Mammal' and 'Bird' are derived (child) classes that inherit from Animal.
-# - Child classes can use or extend parent class attributes and methods.
-# - Built-in functions:
-#     - isinstance(obj, Class): checks if object is an instance of a class (or its subclass)
-#     - issubclass(ClassA, ClassB): checks if ClassA inherits from ClassB
-# - All classes in Python implicitly inherit from the base class 'object'.
-
-# =============================================================
-# 🐾 Base Class
-# =============================================================
-
+# ✅ Base class: Animal
 class Animal:
-    def __init__(self, value):
-        """Initialize the animal with a name."""
-        self.name = value
+    def __init__(self, name):
+        # Common attribute for all animals
+        self.name = name
+        print(f"🐾 Animal initialized with name: {self.name}")
 
     def eat(self):
-        """Prints a message indicating that the animal is eating."""
         print(f"{self.name} is eating 🍽️")
 
 
-# =============================================================
-# 🐕 Derived Class 1: Mammal
-# =============================================================
-
+# ✅ Derived class 1: Mammal (inherits from Animal)
 class Mammal(Animal):
+    def __init__(self, name, sound):
+        # Use super() to call the parent class constructor
+        super().__init__(name)
+        self.sound = sound
+        print(f"🦴 Mammal initialized with sound: {self.sound}")
+
     def walk(self):
-        """Mammals can walk."""
         print(f"{self.name} is walking 🐾")
 
+    def make_sound(self):
+        print(f"{self.name} says '{self.sound}' 🐶")
 
-# =============================================================
-# 🕊️ Derived Class 2: Bird
-# =============================================================
 
+# ✅ Derived class 2: Bird (inherits from Animal)
 class Bird(Animal):
-    def flying(self):
-        """Birds can fly."""
-        print(f"{self.name} is flying 🕊️")
+    def __init__(self, name, age):
+        # Call parent constructor to set the 'name'
+        super().__init__(name)
+        self.age = age
+        print(f"🕊️ Bird initialized with age: {self.age}")
+
+    def fly(self):
+        print(f"{self.name} is flying 🪶")
+
+    def info(self):
+        print(f"{self.name} is {self.age} years old 🧓")
 
 
-# =============================================================
-# ✅ Example Usage
-# =============================================================
+# ============================================================
+# ✅ Create objects
+# ============================================================
 
-# Create instances
-mammal = Mammal("Ashly")
-bird = Bird("Henry")
+mammal = Mammal("Ashly", "Woof")
+bird = Bird("Henry", 3)
 
-# Base class method (inherited)
-mammal.eat()   # Output: Ashly is eating 🍽️
-bird.eat()     # Output: Henry is eating 🍽️
+print("\n--------------------")
+# ✅ Check inheritance relationships
+print("isinstance(bird, Animal)?", isinstance(bird, Animal))  # True
+print("isinstance(mammal, Bird)?", isinstance(mammal, Bird))  # False
+print("issubclass(Bird, Animal)?", issubclass(Bird, Animal))  # True
+print("issubclass(Mammal, Animal)?", issubclass(Mammal, Animal))  # True
+print("issubclass(Bird, object)?", issubclass(Bird, object))  # True
 
-# Child class methods
-mammal.walk()  # Output: Ashly is walking 🐾
-bird.flying()  # Output: Henry is flying 🕊️
+print("\n--------------------")
+# ✅ Use methods from parent and child classes
+mammal.eat()       # From Animal
+mammal.walk()      # From Mammal
+mammal.make_sound()
 
-# -------------------------------------------------------------
-# 🔍 Type Checking
-# -------------------------------------------------------------
-print("\nType Checking Results:")
-print("1️⃣ isinstance(bird, Animal):", isinstance(bird, Animal))   # True
-print("2️⃣ isinstance(mammal, Bird):", isinstance(mammal, Bird))   # False
-print("3️⃣ issubclass(Bird, Animal):", issubclass(Bird, Animal))   # True
-print("4️⃣ issubclass(Bird, object):", issubclass(Bird, object))   # True
-print("5️⃣ issubclass(Mammal, Animal):", issubclass(Mammal, Animal)) # True
+bird.eat()         # From Animal
+bird.fly()         # From Bird
+bird.info()
 
-# -------------------------------------------------------------
-# 🧩 Explanation:
-# -------------------------------------------------------------
-# ✅ isinstance(obj, Class)
-#     → Returns True if 'obj' is an instance of 'Class' or its subclasses.
-#
-# ✅ issubclass(ClassA, ClassB)
-#     → Returns True if 'ClassA' inherits from 'ClassB'.
-#
-# ✅ object
-#     → The root of all Python classes. Every class is a subclass of 'object'.
-
-# =============================================================
-# 🧾 Expected Output
-# =============================================================
-# Ashly is eating 🍽️
-# Henry is eating 🍽️
-# Ashly is walking 🐾
-# Henry is flying 🕊️
-#
-# Type Checking Results:
-# 1️⃣ isinstance(bird, Animal): True
-# 2️⃣ isinstance(mammal, Bird): False
-# 3️⃣ issubclass(Bird, Animal): True
-# 4️⃣ issubclass(Bird, object): True
-# 5️⃣ issubclass(Mammal, Animal): True
+print("\n--------------------")
+# ✅ Show MRO (Method Resolution Order)
+print("Bird MRO:", [cls.__name__ for cls in Bird.__mro__])
+print("Mammal MRO:", [cls.__name__ for cls in Mammal.__mro__])
