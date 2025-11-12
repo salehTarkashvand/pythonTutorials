@@ -1,32 +1,21 @@
-from abc import ABC, abstractmethod
+from collections import namedtuple
 
-# -------------------- Abstract Base Class --------------------
-class UiControl(ABC):
-    """Abstract UI Control class defining a common interface."""
-    @abstractmethod
-    def read(self):
-        pass
+# -------------------- Named Tuple Definition --------------------
+# namedtuple creates an immutable class with named fields
+# Here, we define a "point" class with fields "x" and "y"
+Point = namedtuple("Point", ["x", "y"])
 
-# -------------------- Concrete Classes --------------------
-class TextBox(UiControl):
-    def read(self):
-        print("📝 Reading data from TextBox")
+# -------------------- Instances --------------------
+p1 = Point(x=1, y=3)
+p2 = Point(x=1, y=3)
 
-class DropDownList(UiControl):
-    def read(self):
-        print("⬇️ Reading data from DropDownList")
+# -------------------- Comparison --------------------
+# namedtuples support value-based comparison
+print(p1 == p2)  # True because x and y values are the same
 
-class Slider:
-    """Example of duck typing: not inheriting from UiControl, but implements read()"""
-    def read(self):
-        print("🎚️ Reading value from Slider")
+# -------------------- Accessing Fields --------------------
+print("p1.x =", p1.x)  # Access by attribute name
+print("p1.y =", p1.y)
 
-# -------------------- Polymorphic Function --------------------
-def draw(controls):
-    """Accepts any object with a read() method (Polymorphism & Duck Typing)"""
-    for control in controls:
-        control.read()
-
-# -------------------- Example Usage --------------------
-controls = [TextBox(), DropDownList(), Slider()]
-draw(controls)
+# -------------------- Immutability --------------------
+# p1.x = 10  # ❌ This would raise AttributeError because namedtuple is immutable
